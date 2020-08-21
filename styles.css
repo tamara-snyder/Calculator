@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&display=swap');
+
+html {
+  font-family: 'Baloo Tamma 2', sans-serif;
+  display: block;
+  font-size: 32px;
+  box-sizing: border-box;
+  background-color:black;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+header {
+  position: relative;
+  height: 35vh;
+  width: 320px;
+  margin: 0 auto;
+}
+#result {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 14px;
+  margin: 0;
+  width: 280px;
+  text-align: right;
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  max-width: 320px;
+  margin: 20px auto;
+}
+
+.number {
+  background-color: #444;
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.number:hover {
+  background-color: rgb(131, 131, 131);
+  transition: 0.2s;
+}
+
+.misc, #percent {
+  background-color: #ccc;
+  color: #000;
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.misc:hover {
+  background-color: #fff;
+  transform: scale(1.02);
+  transition: 0.2s;
+}
+
+#percent:hover {
+  background-color: #fff;
+  transform: scale(1.02);
+  transition: 0.2s;
+}
+
+#zero {
+  width: 132px;
+  border-radius: 40px;
+}
+
+.operator {
+  background-color: orange;
+  width: 50px;
+  padding: 8px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.operator:hover {
+  background-color: rgb(250, 193, 118);
+  transform: scale(1.02);
+  transition: 0.2s;
+}
