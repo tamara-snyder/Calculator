@@ -91,3 +91,18 @@ header {
   transform: scale(1.02);
   transition: 0.2s;
 }
+
+#calculate {
+  background-color: orange;
+  width: 50px;
+  padding: 8px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#calculate:hover {
+  background-color: rgb(250, 193, 118);
+  transform: scale(1.02);
+  transition: 0.2s;
+}
