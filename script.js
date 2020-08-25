@@ -1,4 +1,4 @@
-const divide = (x, y) => parseFloat(x) / parseFloat(y),
+const divide = (x, y) => parseFloat(y) === 0 ? 'Not gonna happen': parseFloat(x) / parseFloat(y),
 
 multiply = (x, y) => parseFloat(x) * parseFloat(y),
 
@@ -139,5 +139,8 @@ function calculate(x, y) {
   operatorLastPushed = true;
   stored1 = answer;
   calculatedLast = true;
+  if (answer.toString().length > 9) {
+    answer = answer.toExponential(5);
+  }
   return result.innerHTML = answer;
 }
