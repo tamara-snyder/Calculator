@@ -1,4 +1,4 @@
-const divide = (x, y) => parseFloat(y) === 0 ? 'Not gonna happen': parseFloat(x) / parseFloat(y),
+const divide = (x, y) => y == 0 ? 'Error! Press C' : parseFloat(x) / parseFloat(y),
 
 multiply = (x, y) => parseFloat(x) * parseFloat(y),
 
@@ -34,16 +34,6 @@ let stored1 = '',
 stored2 = '',
 op = '';
 
-
-function reset() {
-  setTimeout(function() {
-    operatorsReset();
-    result.innerHTML = '0';
-    stored1 = '';
-    stored2 = '';
-  }, 100);
-}
-
 // Event Listeners
 clear.addEventListener('click', function() {
   reset();
@@ -60,7 +50,6 @@ negative.addEventListener('click', function() {
 equals.addEventListener('click', function() {
   stored2 = result.innerHTML;
   calculate(stored1, stored2);
-  operatorsReset();
 });
 percentage.addEventListener('click', function() {
   stored1 = result.innerHTML;
@@ -68,17 +57,36 @@ percentage.addEventListener('click', function() {
 })
 
 // Functions
-const operatorsReset = () => {
-  operators.forEach(operator => {
-    operator.style.transition = '0.4s';
-    operator.style.color = 'white';
-    operator.style.backgroundColor = 'orange';
-    operatorLastPushed = false;
+function input() {
+  setNumbers();
+  setOps();
+}
+
+function setNumbers() {
+    numbers.forEach(number => {
+      number.addEventListener('click', function() {
+        clear.innerHTML = 'C';
+        if (operatorLastPushed && stored1 !== '' || calculatedLast) { 
+          result.innerHTML = number.innerHTML;
+          stored2 = result.innerHTML;
+          operatorsReset();
+          calculatedLast = false;
+          return operatorLastPushed = false;
+        }
+        // Gets rid of starting 0 when number is clicked:
+        if (number.id === 'decimal') {
+          if (result.innerHTML.includes('.'))
+            return result.innerHTML;
+        }
+        if (result.innerHTML[0] === '0') {
+          return result.innerHTML = result.innerHTML.replace('0', '' + number.innerHTML);
+        } else if (result.innerHTML.length < 9)
+          return result.innerHTML += number.innerHTML;
+      });
   });
 }
 
-function input() {
-  setNumbers();
+function setOps() {
   operators.forEach(operator => {
     operator.addEventListener('click', function() {
       if (stored1 !== '' && stored2 !== '')
@@ -95,33 +103,28 @@ function input() {
   });
 }
 
-function setNumbers() {
-    numbers.forEach(number => {
-      number.addEventListener('click', function() {
-        if (operatorLastPushed && stored1 !== '') { 
-          result.innerHTML = number.innerHTML;
-          stored2 = result.innerHTML;
-          operatorsReset();
-          return operatorLastPushed = false;
-        }
-        // Gets rid of starting 0 when number is clicked:
-        if (number.id === 'decimal') {
-          if (result.innerHTML.includes('.'))
-            return result.innerHTML;
-        }
-        if (result.innerHTML[0] === '0' || result.innerHTML[1] === '0') {
-          return result.innerHTML = result.innerHTML.replace('0', '' + number.innerHTML);
-        } else if (result.innerHTML.length < 9)
-          return result.innerHTML += number.innerHTML;
-      });
+function reset() {
+  setTimeout(function() {
+    operatorsReset();
+    clear.innerHTML = 'AC';
+    result.innerHTML = '0';
+    stored1 = '';
+    stored2 = '';
+  }, 100);
+}
+
+const operatorsReset = () => {
+  operators.forEach(operator => {
+    operator.style.transition = '0.4s';
+    operator.style.color = 'white';
+    operator.style.backgroundColor = 'orange';
+    operatorLastPushed = false;
   });
 }
 
-input();
-
 function calculate(x, y) {
   let answer;
-  console.log(op);
+  console.log(op, x, y);
   switch(op) {
     case 'divide':
       answer = divide(x, y);
@@ -136,11 +139,17 @@ function calculate(x, y) {
       answer = add(x, y);
       break;
   }
-  operatorLastPushed = true;
-  stored1 = answer;
-  calculatedLast = true;
-  if (answer.toString().length > 9) {
-    answer = answer.toExponential(5);
+  if (typeof answer !== 'string') {
+    stored1 = answer.toString();
+    operatorsReset();
+    stored2 = '';
+    op = '';
+    calculatedLast = true;
+    if (answer.toString().length > 9) {
+      answer = parseFloat(answer).toExponential(4);
+    }
   }
   return result.innerHTML = answer;
 }
+
+input();
