@@ -1,2 +1,2 @@
 # Calculator
-Basic calculator
+A simple web-based calculator mimicking a well-known app design.
