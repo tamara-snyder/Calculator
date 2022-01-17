@@ -1,2 +1,2 @@
 # Calculator
-A simple web-based calculator mimicking a well-known app design.
+A web-based replica of the iOS calculator.
